@@ -1,0 +1,68 @@
+html,
+body {
+	padding: 0;
+	margin: 0;
+	background: transparent;
+}
+
+body {
+	font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+h1 {
+	position: absolute;
+	width: 500px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+	margin-top: -125px;
+	margin-left: -250px;
+	text-align: center;	
+	font-size: 60px;
+	font-weight: 100;
+	margin: 0;
+	padding: 0;
+	cursor:pointer;
+	color:red;
+	background:#ffffff;
+}
+
+
+
+#measureWindow {
+	background:rgba(255,255,255, 0.8);
+	height:auto;
+	width:130px;
+	padding:20px;
+	border:1px solid #ccc;
+	border-radius: 2px;
+}
+
+#measureWindow label {
+	color:#666;
+	font-size:14px;
+	margin-bottom:5px;
+	display: inline-block;
+}
+#measureWindow div {
+	margin-bottom:10px;
+}
+
+#measureWindow div input {
+	width: 50px;
+	padding: 0px;
+	border: none;
+	background:transparent;
+}
+
+#measureWindow #title {
+	margin-top: -20px;
+	border-bottom: 1px solid #ccc;
+	margin-left: -20px;
+	margin-right: -20px;
+	padding-left: 10px;
+	padding-bottom: 5px;
+	background: #f93a3a;
+	padding-top: 5px;
+	color: #ffffff;
+}

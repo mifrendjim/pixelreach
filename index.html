@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Electron boilerplate</title>
+		<link rel="stylesheet" href="index.css">
+	</head>
+	<body>
+
+	<div id="measureWindow" class="moveable">
+		<div id="title">PixelReach</div>
+		<div>
+			<label>Point 1:</label>
+			<input type="text" id="point1_x" />
+			<!--  , <input type="number" id="point1_y" /> -->
+		</div>	
+		<div>
+			<label>Point 2:</label>
+			<input type="text" id="point2_x" />
+			<!--  , <input type="number" id="point2_y" /> -->
+		</div>
+		<div>
+			<label>Distance:</label>
+			<input type="text" id="distance" />
+		</div>
+		<div>
+			<label>Angle:</label>
+			<input type="text" id="angle" />
+		</div>
+	</div>
+
+
+		<script type="text/javascript">
+			var ipc = require('electron').ipcRenderer;
+		    ipc.once('hoverReply', function(response){
+		        var thisPR = response;
+		        console.log('response',thisPR);
+		    })		
+		</script>
+		<script src="displace.min.js"></script>		
+		<script src="canavs.js"></script>
+	</body>
+</html>
