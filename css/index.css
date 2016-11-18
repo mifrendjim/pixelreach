@@ -7,6 +7,8 @@ body {
 
 body {
 	font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+	overflow: hidden;
+	position: relative;
 }
 
 h1 {
@@ -36,6 +38,8 @@ h1 {
 	padding:20px;
 	border:1px solid #ccc;
 	border-radius: 2px;
+	position: absolute;
+	display: inline-block;
 }
 
 #measureWindow label {
@@ -65,4 +69,40 @@ h1 {
 	background: #f93a3a;
 	padding-top: 5px;
 	color: #ffffff;
+	cursor: grab;
+}
+
+
+.spot {
+	height:25px;
+	width:25px;
+	border:1px solid #000000;
+	position:absolute;
+	margin:0px;
+	display:inline;
+}
+
+
+#spot1 {
+	background:green;
+	top:50%;
+	left:25%;
+}
+
+#spot2 {
+	background:orange;
+	top:70%;
+	left:70%;	
+}
+
+.spot:hover {
+	border:1px solid #fff;
+	background:#ffffff;
+	cursor: grab;
+}
+
+.spot.hoverOver {
+	border:1px solid #fff;
+	background:#ffffff;
+	cursor: grab;
 }

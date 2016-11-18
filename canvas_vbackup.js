@@ -7,8 +7,13 @@ function Box() {
   this.fill = '#444444';
 }
 
-var infoBox = document.querySelector('.moveable');
+var infoBox = document.querySelector('#measureWindow');
+var spot1 = document.querySelector('#spot1');
+var spot2 = document.querySelector('#spot2');
+
 displace(infoBox);
+displace(spot1);
+displace(spot2);
 
 var input1_x = document.querySelector('#point1_x');
 var input1_y = document.querySelector('#point1_y');
@@ -17,7 +22,6 @@ var input2_y = document.querySelector('#point2_y');
 var angle = document.querySelector('#angle');
 var distance = document.querySelector('#distance');
 
-var measureBox = document.querySelector('#measureWindow');
 
 //Initialize a new Box, add it, and invalidate the canvas
 function addRect(x, y, w, h, fill) {
@@ -115,13 +119,30 @@ function init() {
   addRect(((WIDTH/2)-100), ((HEIGHT/2)-100), 25, 25, 'blue');
   updateInputs();
 
-  measureBox.addEventListener("mouseover", ( event ) => {
+  infoBox.addEventListener("mouseover", ( event ) => {
     ipc.send('hoverOn', true);
+  })
+  infoBox.addEventListener("mouseleave", ( event ) => {
+    ipc.send('hoverOff', true);
   });
 
-  measureBox.addEventListener("mouseleave", ( event ) => {
+  spot1.addEventListener("mouseover", ( event ) => {
+    spot1.classList.toggle('hoverOver');
+    ipc.send('hoverOn', true);
+  })
+  spot1.addEventListener("mouseleave", ( event ) => {
     ipc.send('hoverOff', true);
-  });  
+    spot1.classList.toggle('hoverOver');
+  });
+
+  spot2.addEventListener("mouseover", ( event ) => {
+    ipc.send('hoverOn', true);
+    spot2.classList.toggle('hoverOver');
+  })
+  spot2.addEventListener("mouseleave", ( event ) => {
+    ipc.send('hoverOff', true);
+    spot2.classList.toggle('hoverOver');
+  });
 
 
 }

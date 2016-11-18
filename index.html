@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Electron boilerplate</title>
-		<link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="css/jquery-ui.min.css">		
+		<link rel="stylesheet" href="css/index.css">
 	</head>
 	<body>
 
@@ -29,15 +30,24 @@
 		</div>
 	</div>
 
+	<div id="spot1" class="moveable spot"></div>
+	<div id="spot2" class="moveable spot"></div>
 
 		<script type="text/javascript">
-			var ipc = require('electron').ipcRenderer;
-		    ipc.once('hoverReply', function(response){
-		        var thisPR = response;
-		        console.log('response',thisPR);
-		    })		
+
 		</script>
-		<script src="displace.min.js"></script>		
-		<script src="canavs.js"></script>
+
+		<!-- Insert this line above script imports  -->
+		<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+		<!-- normal script imports etc  -->
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+
+		<!-- Insert this line after script imports -->
+		<script>if (window.module) module = window.module;</script>
+
+
+		<script src="js/canavs.js"></script>
 	</body>
 </html>

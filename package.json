@@ -1,7 +1,7 @@
 {
-  "name": "app",
-  "productName": "App",
-  "version": "0.0.0",
+  "name": "PixelReach",
+  "productName": "PixelReach",
+  "version": "0.0.1",
   "description": "",
   "license": "MIT",
   "repository": "user/repo",
@@ -13,7 +13,7 @@
   "scripts": {
     "test": "xo",
     "start": "electron .",
-    "build": "electron-packager . --out=dist --asar --overwrite --darwin"
+    "build": "rm -rf dist && electron-packager . --out=dist --asar --overwrite --darwin"
   },
   "files": [
     "index.js",
@@ -25,7 +25,8 @@
     "electron"
   ],
   "dependencies": {
-    "electron-debug": "^1.0.0"
+    "electron-debug": "^1.0.0",
+    "electron-json-storage": "^2.1.0"
   },
   "devDependencies": {
     "devtron": "^1.1.0",
