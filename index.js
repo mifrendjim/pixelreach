@@ -4,6 +4,7 @@ electron.powerSaveBlocker.start('prevent-app-suspension');
 
 const app = electron.app;
 app.commandLine.appendSwitch('disable-renderer-backgrounding');
+
 const storage = require('electron-json-storage');
 var ipc = require('electron').ipcMain;
 
@@ -12,14 +13,14 @@ require('electron-debug')();
 
 // prevent window being garbage collected
 let mainWindow;
+let child_One;
+let child_Two;
+let child_Middle;
 let clickThroughApp = false;
 let windowInterval;
 
-
 function onClosed() {
 	clearInterval(windowInterval);	
-	// dereference the window
-	// for multiple windows store them in an array
 	mainWindow = null;
 }
 
@@ -34,7 +35,13 @@ function createMainWindow() {
 		resizable:false,
 		movable:false,
 		fullscreenable:false,
-		type:'textured'
+		type:'textured',
+		alwaysOnTop: true,
+ 		webPreferences: {
+	    	pageVisibility: false,
+	    	backgroundThrottling: false,
+	    	experimentalFeatures: true
+	  	}
 	});
 
 	win.loadURL(`file://${__dirname}/index.html`);
@@ -43,10 +50,33 @@ function createMainWindow() {
 
 	return win;
 }
+var i = 1;
+function createChildWindow(whichChild) {
+	const win = new electron.BrowserWindow({
+		width: 30,
+		height: 30,
+		x:300*i,
+		y:200*i,
+		transparent: false,
+		frame: false,
+		parent: mainWindow,
+		hasShadow:false,
+		resizable:false
+	});
+	win.loadURL(`file://${__dirname}/child_${whichChild}.html`);
+	win.on('closed', onClosed);
+	i++;	
+	return win;
+}
+
+		// 
+		// movable:true,
+		// fullscreenable:false,
+		// type:'textured',
+		// alwaysOnTop: true,
+
 
 app.on('window-all-closed', () => {
-
-
 	if (process.platform !== 'darwin') {
 		app.quit();
 	}
@@ -60,24 +90,33 @@ app.on('activate', () => {
 
 app.on('ready', () => {
 	mainWindow = createMainWindow();
-	mainWindow.setAlwaysOnTop(true, 'dock');
+	child_One = createChildWindow('1');
+	child_Two = createChildWindow('2');
+	child_Middle = createChildWindow('Middle');	
+	mainWindow.setAlwaysOnTop(true, 'floating');
+	
+
+	// child_One.on('move', (e, cmd) => {
+	//   console.log('child one',e);
+	// })
+
+	// child_Two.on('move', (e, cmd) => {
+	//   console.log('child two',e);
+	// })
 	buildEventLoop();
 });
 
 
 function buildEventLoop() {
+	mainWindow.setIgnoreMouseEvents(true);
 	windowInterval = setInterval(() =>{
-		mainWindow.setIgnoreMouseEvents(false);
-		console.log('interval - click through',clickThroughApp);
-		if(clickThroughApp){
-			mainWindow.setIgnoreMouseEvents(true);
-		}
-    }, 1);
+		var pos1 = child_One.getPosition();
+		console.log(pos1);
+		//win.setPosition(x, y[, animate])
+		console.log(electron.screen.getCursorScreenPoint());
+
+     }, 1);
 }
-
-
-
-
 
 
 ipc.on('hoverOn', function(event, data){
@@ -109,4 +148,16 @@ ipc.on('getStartingPoints', function(event, data){
 	  if (error) throw error;
 	});
 });
+
+
+ipc.on('mouseMove', function(event, data){
+	console.log('mouse moving');
+});
+
+
+
+
+
+
+
 

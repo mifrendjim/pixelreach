@@ -10,6 +10,7 @@ function Box() {
 
 var infoBox = document.querySelector('#measureWindow');
 var spot1 = document.querySelector('#spot1');
+var middle = document.querySelector('#middle');
 var spot2 = document.querySelector('#spot2');
 
 
@@ -79,6 +80,7 @@ var stylePaddingLeft, stylePaddingTop, styleBorderLeft, styleBorderTop;
 // initialize our canvas, add a ghost canvas, set draw loop
 // then add everything we want to intially exist on the canvas
 function init() {
+  document.onmousemove = handleMouseMove;
   ipc.send('getStartingPoints', true);
   console.log('start');
 
@@ -150,7 +152,10 @@ function drawLine() {
       box[1].y = $(box2).position().top;
       box[1].h = 25;
       box[1].w = 25;
-      console.log(box);
+      var midPoint = {};
+      midPoint.x = ((box[0].x+box[1].x)/2);
+      midPoint.y = ((box[0].y+box[1].y)/2);
+
 
       clear(ctx);
       ctx.beginPath();
@@ -399,4 +404,13 @@ ipc.on('startingPoints-reply', function(event, arg) {
     startingPoints = arg;
 })
 
-init();
+//init();
+
+
+
+function handleMouseMove(event) {
+    var dot, eventDoc, doc, body, pageX, pageY;
+    event = event || window.event; // IE-ism
+    // Use event.pageX / event.pageY here
+    //ipc.send('mouseMove', true);
+}

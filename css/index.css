@@ -95,6 +95,12 @@ h1 {
 	left:70%;	
 }
 
+#middle {
+	background:blue;
+	top:70%;
+	left:70%;		
+}
+
 .spot:hover {
 	border:1px solid #fff;
 	background:#ffffff;
